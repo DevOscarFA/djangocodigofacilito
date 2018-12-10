@@ -1,0 +1,34 @@
+version: '2'
+
+services:
+  db:
+    image: postgres:9.5
+    environment:
+      - POSTGRES_DB=mydb
+      - POSTGRES_USER=example
+      - POSTGRES_PASSWORD=secret
+      - PGDATA=/var/lib/postgressql/data/pgdata
+    volumes:
+      - db_data:/var/lib/postgressql/data/pgdata
+  web:
+    build: ./webapp
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./webapp:/webapp
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+  pgadmin:
+    image: dpage/pgadmin4
+    depends_on:
+      - db
+    ports:
+      - "5555:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: admin
+    restart: unless-stopped
+volumes:
+  db_data:
+    external: true
