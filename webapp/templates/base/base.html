@@ -12,18 +12,61 @@
     {% endblock %}
 </head>
 <body>
-    {% block header %}
-    {% include 'base/header.html' %}
+    
+    {% block navbar %}
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'adopcion:solicitud_listar' %}">Solicitudes<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Mascotas
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'mascota:mascota_crear' %}">Registrar</a>
+                            <a class="dropdown-item" href="{% url 'mascota:mascota_listar' %}">Listar</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Adopciones
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <a class="dropdown-item" href="{% url 'adopcion:solicitud_crear' %}">Solicitar</a>
+                            <a class="dropdown-item" href="{% url 'adopcion:solicitud_listar' %}">Listar solicitudes</a>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Opciones
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <a class="dropdown-item" href="{% url 'logout' %}">Salir</a>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     {% endblock %}
     <div class="container">
+    
     {% block content %}
     <p>contenido de base</p>
     {% endblock %}
-    </div>
-    {% block footer %}
     
+    {% block footer %}
     {% endblock %}
 
+    </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="{% static 'js/main.js' %}"></script>
