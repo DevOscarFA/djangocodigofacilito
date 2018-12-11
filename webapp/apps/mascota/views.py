@@ -1,10 +1,15 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.core import serializers
 from apps.mascota.forms import MascotaForm
 from apps.mascota.models import Mascota
 
 def index(request):
     return render(request, 'mascota/index.html')
+
+def listado(request):
+    lista = serializers.serialize('json', Mascota.objects.all())
+    return HttpResponse(lista, content_type='application')
 
 def mascota_view(request):
     if request.method == 'POST':
